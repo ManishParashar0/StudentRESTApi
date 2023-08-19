@@ -1,6 +1,7 @@
 package com.manish.studntapi.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,11 @@ public class StudentService implements StudentDao {
 
 		return repo.findAll();
 
+	}
+
+	public Optional<Student> findbyid(int id) {
+		Optional<Student> findById = this.repo.findById(id);
+		return findById;
 	}
 
 }

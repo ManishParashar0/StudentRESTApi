@@ -17,10 +17,7 @@ public class StudentService implements StudentDao {
 
 	@Override
 	public Student studentadd(Student student) {
-		Student save = this.repo.save(student);
-
-		return save;
-
+		return this.repo.save(student);
 	}
 
 	public List<Student> getstudent() {
@@ -30,22 +27,20 @@ public class StudentService implements StudentDao {
 	}
 
 	public Optional<Student> findbyid(int id) {
-		Optional<Student> findById = this.repo.findById(id);
-		return findById;
+
+		return this.repo.findById(id);
+
 	}
 
 	public ResponseEntity<Object> update(int id, Student updatedStudent) {
 		Optional<Student> findById = repo.findById(id);
 		if (findById.isPresent()) {
 			Student existingStudent = findById.get();
-
 			// Update the fields of the existing student with values from updatedStudent
 			existingStudent.setName(updatedStudent.getName());
 			existingStudent.setDisc(updatedStudent.getDisc());
 			// ... other fields
-
 			repo.save(existingStudent); // Save the updated student
-
 			return ResponseEntity.ok("Update success");
 		} else {
 			return ResponseEntity.notFound().build();

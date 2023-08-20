@@ -18,24 +18,18 @@ import com.manish.studntapi.entity.Student;
 
 @RestController
 public class StudentController {
-//	@Autowired
-//	private Student student;
 	@Autowired
 	private StudentService service;
 
 	@PostMapping("/add")
 	public ResponseEntity<Student> createstudent(@RequestBody Student student) {
-		Student studentadd = this.service.studentadd(student);
-		return new ResponseEntity<>(studentadd, HttpStatus.CREATED);
+		return new ResponseEntity<>(this.service.studentadd(student), HttpStatus.CREATED);
 
 	}
 
 	@GetMapping("/get")
 	public List<Student> get(@RequestBody Student student) {
-		List<Student> getstudent = this.service.getstudent();
-
-		return getstudent;
-
+		return this.service.getstudent();
 	}
 
 	@GetMapping("/get/{id}")
@@ -43,7 +37,6 @@ public class StudentController {
 		Optional<Student> findbyid = this.service.findbyid(id);
 		if (findbyid.isPresent()) {
 			return ResponseEntity.ok(findbyid.get());
-
 		} else {
 			return ResponseEntity.notFound().build();
 		}
@@ -52,8 +45,8 @@ public class StudentController {
 
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Object> update(@PathVariable int id, @RequestBody Student updatedStudent) {
-		ResponseEntity<Object> updateResponse = service.update(id, updatedStudent);
-		return updateResponse;
+		return service.update(id, updatedStudent);
+
 	}
 
 }

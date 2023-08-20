@@ -47,4 +47,14 @@ public class StudentService implements StudentDao {
 		}
 
 	}
+
+	public ResponseEntity<Object> delete(int id) {
+		Optional<Student> findById = repo.findById(id);
+		if (findById.isPresent()) {
+			repo.delete(findById.get());
+			return ResponseEntity.ok("Delete success");
+		}
+		return ResponseEntity.notFound().build();
+
+	}
 }
